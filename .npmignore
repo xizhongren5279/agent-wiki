@@ -1,0 +1,11 @@
+src/
+docs/
+engine/
+mcp/
+*.py
+config.json
+PLAN.md
+SPEC.md
+tsconfig.json
+node_modules/
+.git/

@@ -1,0 +1,26 @@
+{
+  "name": "agent-wiki",
+  "version": "0.2.0",
+  "description": "卡帕西智能知识库 MCP 插件 — 一行安装，纯对话交互，Agent 自动帮你管理知识库、写有人味儿的原创文章",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "agent-wiki": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["mcp", "wiki", "knowledge-base", "karpathy", "obsidian"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.2"
+  }
+}
