@@ -1,6 +1,6 @@
 {
   "name": "agent-wiki",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "卡帕西智能知识库 MCP 插件 — 一行安装，纯对话交互，Agent 自动帮你管理知识库、写有人味儿的原创文章",
   "type": "module",
   "main": "dist/index.js",

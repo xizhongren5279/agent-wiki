@@ -7,7 +7,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { getConfig, getRawDir, getWikiPagesDir, getOutputsDir } from "../state.js";
-import { listMdFiles } from "../utils.js";
+import { listMdFiles, parseFrontmatter } from "../utils.js";
 import { textResult } from "../types.js";
 /** 首次引导提示文本 */
 const INIT_HINT = `你好！我是 agent-wiki 知识库助手。
@@ -40,7 +40,6 @@ export async function handleStatus() {
     const allTags = new Set();
     for (const f of wikiFiles) {
         const content = fs.readFileSync(path.join(wikiPagesDir, f), "utf-8");
-        const { parseFrontmatter } = await import("../utils.js");
         const { meta } = parseFrontmatter(content);
         if (Array.isArray(meta.tags)) {
             for (const t of meta.tags)
@@ -54,8 +53,9 @@ export async function handleStatus() {
         const schema = fs.readFileSync(schemaPath, "utf-8");
         const topicMatch = schema.match(/## 我的兴趣方向\s*\n(.+)/);
         if (topicMatch) {
+            // SCHEMA.md 中兴趣方向用中文顿号（、）分隔
             topics = topicMatch[1]
-                .split(",")
+                .split(/[、,，]/)
                 .map((t) => t.trim())
                 .filter(Boolean);
         }

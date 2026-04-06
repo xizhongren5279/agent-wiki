@@ -22,7 +22,8 @@ export async function handleArticle(params) {
     const fileName = `${dateCompact()}-${safeFilename(topic)}.md`;
     const filePath = path.join(outputsDir, fileName);
     // 添加 frontmatter
-    const refsStr = refs.length > 0 ? `\nrefs:\n${refs.map((r) => `  - "[[${r}]]"`).join("\n")}` : "";
+    // 注意：refs 使用行内数组格式，不用 YAML 缩进列表（parseFrontmatter 不支持缩进列表）
+    const refsStr = refs.length > 0 ? `\nrefs: [${refs.map((r) => `"[[${r}]]"`).join(", ")}]` : "";
     const fullContent = `---
 title: "${topic}"
 date: ${todayStr()}

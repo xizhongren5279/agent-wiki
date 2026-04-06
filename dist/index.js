@@ -23,7 +23,7 @@ import { handleLint } from "./tools/lint.js";
 import { handleFeedback } from "./tools/feedback.js";
 const server = new McpServer({
     name: "agent-wiki",
-    version: "0.1.0",
+    version: "0.2.1",
 });
 // ─── 注册 8 个 MCP 工具 ───
 /**

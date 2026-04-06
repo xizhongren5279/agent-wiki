@@ -35,14 +35,17 @@ export async function handleCompile(params: {
   const wikiFileName = safeFilename(title) + ".md";
   const wikiFilePath = path.join(wikiPagesDir, wikiFileName);
 
+  // 转义 title 中的双引号，防止破坏 YAML frontmatter
+  const safeTitle = title.replace(/"/g, '\\"');
+
   // 生成 Wiki 页面内容
+  // 注意：sources 使用行内数组格式 [a, b]，而非 YAML 缩进列表（parseFrontmatter 不支持缩进列表）
   const wikiContent = `---
-title: "${title}"
+title: "${safeTitle}"
 date: ${todayStr()}
 tags: [${tags.join(", ")}]
 category: ${category}
-sources:
-  - "[[raw/${source_file}]]"
+sources: ["[[raw/${source_file}]]"]
 ---
 
 # ${title}

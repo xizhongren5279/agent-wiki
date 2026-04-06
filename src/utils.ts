@@ -31,14 +31,21 @@ export function parseFrontmatter(content: string): {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith("#")) continue;
 
-    // 数组格式：tags: [a, b, c]
+    // 数组格式：tags: [a, b, c] 或 sources: ["[[raw/x]]", "[[raw/y]]"]
     const arrMatch = trimmed.match(/^(\w+):\s*\[(.*)\]$/);
     if (arrMatch) {
       const key = arrMatch[1];
-      const values = arrMatch[2]
-        .split(",")
-        .map((v) => v.trim().replace(/^['"]|['"]$/g, ""))
-        .filter((v) => v);
+      const inner = arrMatch[2];
+      // 支持引号包裹的元素（如 sources: ["[[raw/x]]"]）
+      const values: string[] = [];
+      // 先尝试按引号分割
+      const quotedItems = inner.match(/"[^"]*"|'[^']*'|[^,]+/g);
+      if (quotedItems) {
+        for (const item of quotedItems) {
+          const cleaned = item.trim().replace(/^['"]|['"]$/g, "");
+          if (cleaned) values.push(cleaned);
+        }
+      }
       meta[key] = values;
       continue;
     }
