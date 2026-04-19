@@ -23,7 +23,7 @@ import { handleLint } from "./tools/lint.js";
 import { handleFeedback } from "./tools/feedback.js";
 const server = new McpServer({
     name: "agent-wiki",
-    version: "0.2.1",
+    version: "0.1.0",
 });
 // ─── 注册 8 个 MCP 工具 ───
 /**
@@ -67,7 +67,7 @@ server.tool("wiki_tag", "将标签写入文件的 frontmatter。你应该先用 
 server.tool("wiki_compile", "根据你用 LLM 生成的摘要、洞察、分类生成 Wiki 页面。同时更新 INDEX.md 和 LOG.md。你应该先读 SCHEMA.md 了解 Wiki 页面格式，用 LLM 生成内容后再调用。", {
     file: z.string().describe("raw/ 下的源文件名"),
     title: z.string().describe("Wiki 页面标题"),
-    summary: z.string().describe("2-3 句话的核心内容摘要"),
+    summary: z.string().describe("150-300字的核心内容摘要，三段式：是什么(1句)→为什么重要(1-2句)→关键发现(2-3句含具体事实/数据/产品名)。禁止以'文章介绍了''本文探讨了'开头，禁止'值得注意的是'等AI味词汇"),
     insights: z.array(z.string()).describe("3-5 个核心洞察"),
     category: z.string().describe("分类名，如 'AI工程化'、'知识管理'"),
     tags: z.array(z.string()).describe("5-10 个标签"),

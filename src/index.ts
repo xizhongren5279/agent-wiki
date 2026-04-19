@@ -99,7 +99,7 @@ server.tool(
   {
     file: z.string().describe("raw/ 下的源文件名"),
     title: z.string().describe("Wiki 页面标题"),
-    summary: z.string().describe("2-3 句话的核心内容摘要"),
+    summary: z.string().describe("150-300字的核心内容摘要，三段式：是什么(1句)→为什么重要(1-2句)→关键发现(2-3句含具体事实/数据/产品名)。禁止以'文章介绍了''本文探讨了'开头，禁止'值得注意的是'等AI味词汇"),
     insights: z.array(z.string()).describe("3-5 个核心洞察"),
     category: z.string().describe("分类名，如 'AI工程化'、'知识管理'"),
     tags: z.array(z.string()).describe("5-10 个标签"),

@@ -1,0 +1,27 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8090
+  },
+  "llm": {
+    "mode": "ollama",
+    "system": "你是中文助手，必须用中文回答，简洁直接，不废话。只输出要求的内容。",
+    "ollama": {
+      "api_base": "http://localhost:11434/api/generate",
+      "model": "gemma4:e2b",
+      "timeout": 180
+    },
+    "openai": {
+      "api_base": "https://openrouter.ai/api/v1/chat/completions",
+      "api_key": "",
+      "model": "deepseek/deepseek-chat",
+      "timeout": 120
+    }
+  },
+  "paths": {
+    "source": "/Users/xizhongren/微云同步助手(1106136175)/obsidian ducuments/Clippings",
+    "raw": "/Users/xizhongren/微云同步助手(1106136175)/obsidian ducuments/Raw",
+    "wiki": "/Users/xizhongren/微云同步助手(1106136175)/obsidian ducuments/Wiki",
+    "state": "/Users/xizhongren/.openclaw/workspace/memory/agent-wiki-state.json"
+  }
+}

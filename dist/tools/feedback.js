@@ -26,15 +26,17 @@ export async function handleFeedback(params) {
     const title = `Q&A: ${question.substring(0, 30)}${question.length > 30 ? "..." : ""}`;
     const fileName = `${safeFilename(title)}.md`;
     const filePath = path.join(wikiPagesDir, fileName);
+    // 构建 sources 的 wikilink 格式
+    const sourceLinks = sources.map((s) => `- "[[${s}]]"`).join("\n");
     // 生成 Wiki 页面内容
-    // 注意：sources 使用行内数组格式，不用 YAML 缩进列表（parseFrontmatter 不支持缩进列表）
     const content = `---
 title: "${title.replace(/"/g, '\\"')}"
 date: ${todayStr()}
 tags: [${tags.join(", ")}]
 category: ${category}
 type: query-derived
-sources: [${sources.map((s) => `"[[${s}]]"`).join(", ")}]
+sources:
+  ${sourceLinks}
 ---
 
 # ${title}
@@ -69,13 +71,8 @@ ${sources.map((s) => `- [[${s.replace(".md", "")}]]`).join("\n")}
             }
             else if (line.startsWith("- [[") && currentCategory) {
                 const linkMatch = line.match(/- \[\[(.+?)\]\]\s*\((.+?)\)/);
-                if (linkMatch) {
-                    if (!sections[currentCategory])
-                        sections[currentCategory] = [];
-                    sections[currentCategory].push({
-                        title: linkMatch[1],
-                        tags: linkMatch[2].split(",").map((t) => t.trim()),
-                    });
+                if (linkMatch && !sections[currentCategory]) {
+                    sections[currentCategory] = [];
                 }
             }
         }
